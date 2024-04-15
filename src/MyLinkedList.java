@@ -87,62 +87,113 @@ public class MyLinkedList<T> implements MyList<T> {
 
     @Override
     public void addFirst(T item) {
-
+        add(0,item);
     }
 
     @Override
     public void addLast(T item) {
-
+        add(item);
     }
 
     @Override
     public T get(int index) {
-        return null;
+        checkUp(index);
+        MyNode current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.nextNode;
+        }
+        return (T) current.data;
     }
 
     @Override
     public T getFirst() {
-        return null;
+        return (T) head.data;
     }
 
     @Override
     public T getLast() {
-        return null;
+        return (T) tail.data;
     }
 
     @Override
     public void remove(int index) {
-
+        checkUp(index);
+        if(index == 0){
+            head = head.nextNode;
+            head.previNode = null;
+        }
+        else if(index == size-1){
+            tail = tail.previNode;
+            tail.nextNode = null;
+        }
+        else{
+            MyNode current = head;
+            for(int i = 0;i<index;i++){
+                current = current.nextNode;
+            }
+            current.previNode.nextNode = current.nextNode;
+            current.nextNode.previNode = current.previNode;
+        }
+        size--;
     }
 
     @Override
     public void removeFirst() {
-
+        remove(0);
     }
 
     @Override
     public void removeLast() {
-
+        remove(size-1);
     }
 
     @Override
     public void sort() {
-
+        MyNode<T> current;
+        boolean sorted = false;
+        while (!sorted) {
+            sorted = true;
+            current = head;
+            while (current != null && current.nextNode != null) {
+                if (((Comparable<T>) current.data).compareTo((T) current.nextNode.data) < 0) {
+                    T temp = current.data;
+                    current.data = (T) current.nextNode.data;
+                    current.nextNode.data = temp;
+                    sorted = false;
+                }
+                current = current.nextNode;
+            }
+        }
     }
 
+
     @Override
-    public int indexOf(Object obiect) {
-        return 0;
+    public int indexOf(Object object) {
+        MyNode current = head;
+        for(int i =0;i<size;i++){
+            if(current.data.equals(object)){
+                return i;
+            }
+            current = current.nextNode;
+        }
+        return -1;
     }
 
     @Override
     public int lastIndexOf(Object object) {
-        return 0;
+        MyNode current = tail;
+        for(int i =size-1;i>=0;i--){
+            if(current.data.equals(object)){
+                return i;
+            }
+            current = current.previNode;
+        }
+        return -1;
     }
 
     @Override
     public boolean exists(Object object) {
-        return false;
+        return indexOf(object) != -1;
     }
 
     @Override

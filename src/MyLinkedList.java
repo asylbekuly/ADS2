@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class MyLinkedList<T> implements MyList<T> {
     class MyNode<E>{
@@ -34,6 +35,12 @@ public class MyLinkedList<T> implements MyList<T> {
             throw new IndexOutOfBoundsException("Index: " + index + " Size: " + size);
         }
     }
+
+    @Override
+    public void add() {
+
+    }
+
     @Override
     public void add(T item) {
         MyNode newNode = new MyNode(item);
@@ -198,21 +205,49 @@ public class MyLinkedList<T> implements MyList<T> {
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        Object arr[] = new Object[size];
+        MyNode current = head;
+        for(int i=0;i<size;i++){
+            arr[i] = current.data;
+            current = current.nextNode;
+        }
+        return arr;
     }
 
     @Override
     public void clear() {
-
+        head= null;
+        tail=null;
+        size = 0;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new MyIterator();
+    }
+    public class MyIterator implements Iterator<T> {
+        private MyNode current = head;
+        private int index = 0;
+
+        @Override
+        public boolean hasNext() {
+            return index < size;
+        }
+
+        @Override
+        public T next() {
+            if (hasNext() != true) {
+                throw new NoSuchElementException();
+            }
+            T element = (T) current.data;
+            current = current.nextNode;
+            index++;
+            return element;
+        }
     }
 }

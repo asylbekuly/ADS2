@@ -25,6 +25,11 @@ public class MyArrayList<T extends Comparable<T>> implements MyList<T> {
     }
 
     @Override
+    public void add() {
+
+    }
+
+    @Override
     public void add(T item) {
         if (length == arr.length)
             increaseCapacity();

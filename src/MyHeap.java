@@ -1,64 +1,94 @@
+// Класс, представляющий кучу (heap) с элементами, которые могут быть сравнены (Comparable)
 public class MyHeap<T extends Comparable<T>> {
+    // Массивный список для хранения элементов кучи
     MyArrayList<T> heap = new MyArrayList<>();
-    public MyHeap(){
 
+    // Конструктор по умолчанию
+    public MyHeap() {
     }
-    public void empty(){
-        heap.clear();
+
+    // Очистка кучи (удаление всех элементов)
+    public void empty() {
+        heap.clear(); // Очищаем весь список
     }
-    public int size(){
-        return heap.size();
+
+    // Возвращает количество элементов в куче
+    public int size() {
+        return heap.size(); // Количество элементов в массиве
     }
-    public T getMax(){
-        return heap.get(0);
+
+    // Возвращает максимальный элемент кучи (для максимальной кучи, обычно это корневой элемент)
+    public T getMax() {
+        return heap.get(0); // Корневой элемент является максимальным
     }
+
+    // Извлекает и удаляет максимальный элемент из кучи, затем восстанавливает свойства кучи
     public T extractMax() {
-        T max = heap.get(0);
-        swap(0, heap.size() - 1);
-        heap.remove(heap.size() - 1);
-        heapify(0);
-        return max;
+        T max = heap.get(0); // Получаем максимальный элемент
+        swap(0, heap.size() - 1); // Меняем корневой элемент с последним
+        heap.remove(heap.size() - 1); // Удаляем последний элемент
+        heapify(0); // Восстанавливаем структуру кучи
+        return max; // Возвращаем максимальный элемент
     }
-    public void insert(T item){
-        heap.add(item);
-        int i = heap.size()-1;
-        heapify(i);
+
+    // Добавляет новый элемент в кучу и восстанавливает свойства кучи
+    public void insert(T item) {
+        heap.add(item); // Добавляем новый элемент в конец списка
+        int i = heap.size() - 1; // Индекс нового элемента
+        heapify(i); // Восстанавливаем структуру кучи, начиная с нового элемента
     }
+
+    // Восстанавливает структуру кучи, начиная с узла по индексу 'i'
     private void heapify(int i) {
-        int left = leftChildOf(i);
-        int right = rightChildOf(i);
-        int largest = i;
+        int left = leftChildOf(i); // Индекс левого потомка
+        int right = rightChildOf(i); // Индекс правого потомка
+        int largest = i; // Предполагаем, что текущий элемент — самый большой
+
+        // Если левый потомок больше текущего элемента, выбираем его как самый большой
         if (left < heap.size() && heap.get(left).compareTo(heap.get(largest)) > 0) {
             largest = left;
         }
+
+        // Если правый потомок больше текущего самого большого, выбираем его
         if (right < heap.size() && heap.get(right).compareTo(heap.get(largest)) > 0) {
             largest = right;
         }
+
+        // Если текущий элемент не является самым большим, меняем местами и рекурсивно восстанавливаем кучу
         if (largest != i) {
-            swap(i, largest);
-            heapify(largest);
-        }
-    }
-    private void traverse(int i) {
-        if (i < heap.size()) {
-            traverse(leftChildOf(i));
-            System.out.println(heap.get(i));
-            traverse(rightChildOf(i));
+            swap(i, largest); // Меняем местами
+            heapify(largest); // Рекурсивно продолжаем heapify
         }
     }
 
-    public int leftChildOf(int i){
-        return 2*i;
+    // Обходит кучу рекурсивно и выводит каждый элемент
+    private void traverse(int i) {
+        if (i < heap.size()) { // Убедимся, что индекс не выходит за пределы
+            traverse(leftChildOf(i)); // Рекурсивно обходим левого потомка
+            System.out.println(heap.get(i)); // Выводим текущий элемент
+            traverse(rightChildOf(i)); // Рекурсивно обходим правого потомка
+        }
     }
-    public int rightChildOf(int i){
-        return 2*i+1 ;
+
+    // Возвращает индекс левого потомка
+    public int leftChildOf(int i) {
+        return 2 * i; // Левый потомок: 2 * индекс
     }
-    public int parentOf(int i){
-        return i/2;
+
+    // Возвращает индекс правого потомка
+    public int rightChildOf(int i) {
+        return 2 * i + 1; // Правый потомок: 2 * индекс + 1
     }
-    public void swap(int i , int j){
-        T temp = heap.get(i);
-        heap.set(i, heap.get(j));
-        heap.set(j,temp);
+
+    // Возвращает индекс родителя
+    public int parentOf(int i) {
+        return i / 2; // Родитель: индекс делённый на 2
+    }
+
+    // Меняет местами два элемента по индексам 'i' и 'j'
+    public void swap(int i, int j) {
+        T temp = heap.get(i); // Временная переменная для обмена
+        heap.set(i, heap.get(j)); // Устанавливаем элемент 'j' в позицию 'i'
+        heap.set(j, temp); // Устанавливаем элемент 'i' в позицию 'j'
     }
 }

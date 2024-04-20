@@ -1,31 +1,49 @@
 import java.util.NoSuchElementException;
 
+// Реализация стека с использованием односвязного списка
 public class MyStack<T> {
+    // Используем MyLinkedList для хранения элементов стека
     private MyLinkedList<T> stack = new MyLinkedList<>();
-    public MyStack(){
 
+    // Конструктор по умолчанию
+    public MyStack() {
     }
-    public T top(){
-        return (T) stack.getLast();
-    }
-    public T pop() {
-        if (ISEmpty()) {
+
+    // Метод для получения верхнего элемента стека без удаления
+    public T top() {
+        if (ISEmpty()) { // Проверка на пустой стек
             throw new NoSuchElementException("Stack is empty");
         }
-        T item = stack.getLast();
-        stack.removeLast();
-        return item;
+        return stack.getLast(); // Возвращает последний элемент
     }
-    public void push(T item){
-        stack.addLast(item);
+
+    // Метод для извлечения и удаления верхнего элемента стека
+    public T pop() {
+        if (ISEmpty()) { // Проверка на пустой стек
+            throw new NoSuchElementException("Stack is empty");
+        }
+        T item = stack.getLast(); // Получаем верхний элемент
+        stack.removeLast(); // Удаляем его из стека
+        return item; // Возвращаем извлеченный элемент
     }
-    public boolean ISEmpty(){
-        return stack.size()==0;
+
+    // Метод для добавления элемента в верхнюю часть стека
+    public void push(T item) {
+        stack.addLast(item); // Добавляем элемент в конец списка
     }
-    public int size(){
-        return stack.size();
+
+    // Метод для проверки, пуст ли стек
+    public boolean ISEmpty() {
+        return stack.size() == 0; // Если размер 0, значит стек пуст
     }
-    public void clear(){
-        stack.clear();
+
+    // Метод для получения размера стека
+    public int size() {
+        return stack.size(); // Возвращает количество элементов в стеке
+    }
+
+    // Метод для очистки стека
+    public void clear() {
+        stack.clear(); // Удаляет все элементы из стека
     }
 }

@@ -1,35 +1,45 @@
+// Класс, представляющий очередь, основанную на динамическом массиве
 public class MyQueue<T extends Comparable<T>> {
+    // Внутренний список для хранения элементов очереди
     MyArrayList<T> queue = new MyArrayList<>();
 
+    // Конструктор по умолчанию для инициализации пустой очереди
     public MyQueue() {}
 
+    // Возвращает первый элемент в очереди (начало очереди)
     public T front() {
-        return queue.get(0);
+        return queue.get(0); // Первый элемент в списке
     }
 
+    // Возвращает последний элемент в очереди (конец очереди)
     public T back() {
-        return queue.getLast();
+        return queue.getLast(); // Последний элемент в списке
     }
 
+    // Удаляет и возвращает первый элемент из очереди (из начала очереди)
     public T dequeue() {
-        T item = queue.get(0);
-        queue.remove(0);
-        return item;
+        T item = queue.get(0); // Получаем первый элемент
+        queue.remove(0); // Удаляем первый элемент из очереди
+        return item; // Возвращаем удалённый элемент
     }
 
+    // Добавляет новый элемент в конец очереди
     public void enqueue(T item) {
-        queue.add(item);
+        queue.add(item); // Добавляем элемент в конец очереди
     }
 
+    // Проверяет, пуста ли очередь
     public boolean isEmpty() {
-        return queue.size() == 0;
+        return queue.size() == 0; // Если размер равен нулю, очередь пуста
     }
 
+    // Возвращает количество элементов в очереди
     public int size() {
-        return queue.size();
+        return queue.size(); // Возвращает текущий размер списка
     }
 
+    // Очищает очередь, удаляя все элементы
     public void clear() {
-        queue.clear();
+        queue.clear(); // Очищаем список
     }
 }

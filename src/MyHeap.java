@@ -39,13 +39,14 @@ public class MyHeap<T extends Comparable<T>> {
             heapify(largest);
         }
     }
-    private void traverse(int i){
-        if(i<heap.size()){
-            System.out.println(heap.get(i));
+    private void traverse(int i) {
+        if (i < heap.size()) {
             traverse(leftChildOf(i));
+            System.out.println(heap.get(i));
             traverse(rightChildOf(i));
         }
     }
+
     public int leftChildOf(int i){
         return 2*i;
     }

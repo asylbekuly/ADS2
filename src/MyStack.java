@@ -1,6 +1,5 @@
-import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
+import java.util.NoSuchElementException;
+
 public class MyStack<T> {
     private MyLinkedList<T> stack = new MyLinkedList<>();
     public MyStack(){
@@ -9,7 +8,10 @@ public class MyStack<T> {
     public T top(){
         return (T) stack.getLast();
     }
-    public T top(){
+    public T pop() {
+        if (ISEmpty()) {
+            throw new NoSuchElementException("Stack is empty");
+        }
         T item = stack.getLast();
         stack.removeLast();
         return item;

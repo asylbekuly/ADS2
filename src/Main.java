@@ -66,43 +66,55 @@ public class Main { // главный класс для программы
 //
 //        System.out.println("Stack is empty: " + stack.ISEmpty()); // проверка, пуст ли стек
 
-        // Пример использования MyQueue
-        MyQueue<String> queue = new MyQueue<>(); // создание очереди
-        queue.enqueue("Hello"); // добавление элементов в очередь
-        queue.enqueue("World");
-
-        System.out.println("Queue size: " + queue.size()); // вывод размера очереди
-        System.out.println("Front element: " + queue.front()); // получение первого элемента
-        System.out.println("Back element: " + queue.back()); // получение последнего элемента
-
-        // Извлечение элементов из очереди, пока она не станет пустой
-        while (!queue.isEmpty()) {
-            System.out.println("Dequeued element: " + queue.dequeue());
-        }
-
-        System.out.println("Queue is empty: " + queue.isEmpty()); // проверка, пуст ли очередь
+//        // Пример использования MyQueue
+//        MyQueue<String> queue = new MyQueue<>(); // создание очереди
+//        queue.enqueue("Hello"); // добавление элементов в очередь
+//        queue.enqueue("World");
+//
+//        System.out.println("Queue size: " + queue.size()); // вывод размера очереди
+//        System.out.println("Front element: " + queue.front()); // получение первого элемента
+//        System.out.println("Back element: " + queue.back()); // получение последнего элемента
+//
+//        // Извлечение элементов из очереди, пока она не станет пустой
+//        while (!queue.isEmpty()) {
+//            System.out.println("Dequeued element: " + queue.dequeue());
+//        }
+//
+//        System.out.println("Queue is empty: " + queue.isEmpty()); // проверка, пуст ли очередь
 
         // Пример использования MyHeap
-        MyHeap<Integer> heap = new MyHeap<>(); // создание кучи
+        MyHeap<Integer> heap = new MyHeap<>();
 
-        // Вставка элементов в кучу
+        // Добавляем элементы в кучу и выводим их
+        System.out.println("Adding elements to the heap:");
         heap.insert(10);
         heap.insert(20);
         heap.insert(15);
         heap.insert(30);
+        heap.insert(25);
+        heap.traverse(0); // Печать текущего состояния кучи
 
-        // Получение максимального элемента в куче
-        System.out.println("Max element: " + heap.getMax());
+        // Получение максимального элемента без извлечения
+        System.out.println("\nMaximum element in the heap:");
+        System.out.println(heap.getMax()); // Должно вывести 30
 
-        // Извлечение максимального элемента из кучи
-        System.out.println("Extracted max element: " + heap.extractMax());
+        // Извлечение максимального элемента
+        System.out.println("\nExtracting maximum element:");
+        Integer max = heap.extractMax(); // Должно вывести 30
+        System.out.println("Extracted: " + max);
 
-        // Размер кучи после извлечения
-        System.out.println("Heap size: " + heap.size());
+        // Печать кучи после извлечения максимума
+        System.out.println("\nHeap after extracting the maximum:");
+        heap.traverse(0); // Печать текущего состояния кучи
 
-        // Вывод элементов кучи
-        System.out.println("Heap elements after extraction:");
-        heap.traverse(0); // обход кучи с корня
+        // Проверка размера кучи
+        System.out.println("\nSize of the heap:");
+        System.out.println(heap.size()); // Должно вывести 4
+
+        // Очистка кучи и проверка размера после очистки
+        heap.empty();
+        System.out.println("\nHeap after clearing:");
+        System.out.println(heap.size()); // Должно вывести 0
 
     }
 
